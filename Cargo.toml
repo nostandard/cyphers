@@ -1,4 +1,4 @@
 [workspace]
-members = ["otp"]
+members = ["otp", "caesar"]
 
 resolver = "2"
