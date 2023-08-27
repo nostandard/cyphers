@@ -1,4 +1,4 @@
 [workspace]
-members = ["aes", "caesar", "otp", "vigenere"]
+members = ["aes", "caesar", "des", "otp", "vigenere"]
 
 resolver = "2"
