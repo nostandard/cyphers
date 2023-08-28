@@ -20,11 +20,28 @@ pub fn encrypt(plaintext: &[u8], key: &[u8]) -> Vec<u8> {
     let mut ciphertext: Vec<u8> = vec![];
 
     for i in 0..plaintext.len() {
+        // Encrypt the plaintext using the key
         let encrypted_bit = plaintext[i] ^ key[i];
         ciphertext.push(encrypted_bit);
     }
 
     ciphertext
+}
+
+pub fn decrypt(ciphertext: &[u8], key: &[u8]) -> Vec<u8> {
+    if ciphertext.len() != key.len() {
+        panic!("Key and ciphertext lengths do not match!");
+    }
+
+    let mut plaintext: Vec<u8> = vec![];
+
+    for i in 0..ciphertext.len() {
+        // Decrypt the ciphertext using the key
+        let decrypted_bit = ciphertext[i] ^ key[i];
+        plaintext.push(decrypted_bit);
+    }
+
+    plaintext
 }
 
 fn generate_random_bit() -> u8 {
@@ -46,13 +63,26 @@ mod tests {
     }
 
     #[test]
-    fn test_encrypt() {
+    fn test_encrypt_decrypt() {
         let plaintext = "Hello";
         let key = generate_key(plaintext.len());
         let ciphertext = encrypt(plaintext.as_bytes(), &key);
 
+        println!(
+            "Plaintext: {}, \nKey: {:?}, \nCiphertext: {:?}",
+            plaintext, key, ciphertext
+        );
+
         assert_eq!(plaintext.len(), key.len());
         assert_eq!(plaintext.len(), ciphertext.len());
         assert_eq!(key.len(), ciphertext.len());
+
+        let decrypted_plaintext = decrypt(&ciphertext, &key);
+        let decrypted_plaintext = unsafe { String::from_utf8_unchecked(decrypted_plaintext) };
+
+        println!("\nDecrypted Plaintext: {}", decrypted_plaintext);
+
+        assert_eq!(decrypted_plaintext.len(), plaintext.len());
+        assert_eq!(decrypted_plaintext, plaintext);
     }
 }
