@@ -48,4 +48,6 @@ Decryption is done by applying the same key to the ciphertext, using the XOR ope
 * Once you've decrypted the message, the key should be destroyed and never used again.
 * Remember, the strength of OTP lies in the randomness of the key and the fact that it's used only once. If you use the same key for a different message, the security is compromised.
 
-## Problems
+## Limitation
+
+To achieve perfect secrecy, an implementation of the OTP cipher requires truly random, as opposed to pseudorandom, one-time pad values, which is a non-trivial requirement. Random number generation in computers is often difficult, and pseudorandom number generators are often used for their speed and usefulness for most applications. True random number generators exist, but are typically slower and more specialized. In this implementation, I've used the `rand` crate's `OsRng` type instead of its default `ThreadRng``, which is a thread-local, automatically-seeded random number generator.
