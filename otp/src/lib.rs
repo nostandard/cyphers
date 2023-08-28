@@ -44,6 +44,23 @@ pub fn decrypt(ciphertext: &[u8], key: &[u8]) -> Vec<u8> {
     plaintext
 }
 
+// Generic implementation for both encryption and decryption
+pub fn encipher(data: &[u8], key: &[u8]) -> Vec<u8> {
+    if data.len() != key.len() {
+        panic!("The lengths of the data and the key do not match!");
+    }
+
+    let mut enciphered_data: Vec<u8> = vec![];
+
+    for i in 0..data.len() {
+        // Encrypt/decrypt the data using the key
+        let enciphered_bit = data[i] ^ key[i];
+        enciphered_data.push(enciphered_bit);
+    }
+
+    enciphered_data
+}
+
 fn generate_random_bit() -> u8 {
     let mut key: Vec<u8> = vec![];
     OsRng.fill_bytes(&mut key);
@@ -78,6 +95,30 @@ mod tests {
         assert_eq!(key.len(), ciphertext.len());
 
         let decrypted_plaintext = decrypt(&ciphertext, &key);
+        let decrypted_plaintext = unsafe { String::from_utf8_unchecked(decrypted_plaintext) };
+
+        println!("\nDecrypted Plaintext: {}", decrypted_plaintext);
+
+        assert_eq!(decrypted_plaintext.len(), plaintext.len());
+        assert_eq!(decrypted_plaintext, plaintext);
+    }
+
+    #[test]
+    fn test_encipher() {
+        let plaintext = "Hello";
+        let key = generate_key(plaintext.len());
+        let ciphertext = encipher(plaintext.as_bytes(), &key);
+
+        println!(
+            "Plaintext: {}, \nKey: {:?}, \nCiphertext: {:?}",
+            plaintext, key, ciphertext
+        );
+
+        assert_eq!(plaintext.len(), key.len());
+        assert_eq!(plaintext.len(), ciphertext.len());
+        assert_eq!(key.len(), ciphertext.len());
+
+        let decrypted_plaintext = encipher(&ciphertext, &key);
         let decrypted_plaintext = unsafe { String::from_utf8_unchecked(decrypted_plaintext) };
 
         println!("\nDecrypted Plaintext: {}", decrypted_plaintext);
