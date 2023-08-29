@@ -115,7 +115,7 @@ mod tests {
     }
 
     #[test]
-    fn test_caesar_encryption_and_decryption_non_alpha_chars() {
+    fn test_caesar_encryption_and_decryption_with_non_alpha_chars() {
         let plaintext = "Hello, World!";
         let encrypted = encrypt(plaintext, 3);
         assert_eq!(encrypted, "Khoor, Zruog!");
