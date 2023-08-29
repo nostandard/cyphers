@@ -54,14 +54,14 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_generate_key() {
+    fn test_otp_key_generation() {
         let key = generate_key(32);
         println!("Key: {:?}", &key);
         assert_eq!(key.len(), 32);
     }
 
     #[test]
-    fn test_encrypt_decrypt() {
+    fn test_otp_encryption_and_decryption() {
         let plaintext = "Hello";
         let key = generate_key(plaintext.len());
         let ciphertext = encrypt(plaintext.as_bytes(), &key);
@@ -85,7 +85,7 @@ mod tests {
     }
 
     #[test]
-    fn test_encipher() {
+    fn test_otp_encipherment() {
         let plaintext = "Hello";
         let key = generate_key(plaintext.len());
         let ciphertext = encipher(plaintext.as_bytes(), &key);
