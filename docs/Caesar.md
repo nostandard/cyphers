@@ -6,17 +6,17 @@ The Caesar cipher is a type of substitution cipher where each letter in the plai
 
 The formula to encrypt a letter using a Caesar cipher is:
 
-`E<sub>n</sub>(x) = (x + n) mod 26`
+E<sub>n</sub>(x) = (x + n) mod 26
 
 Where:
 
-* `E<sub>n</sub>(x)` is the encrypted letter
-* `x` is the plaintext letter
-* `n` is the shift value
+* E<sub>n</sub>(x) is the encrypted letter
+* x is the plaintext letter
+* n is the shift value
 
 The formula to decrypt is:
 
-`D<sub>n</sub>(x) = (x - n) mod 26`
+D<sub>n</sub>(x) = (x - n) mod 26
 
 ## Algorithm
 
