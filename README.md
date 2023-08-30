@@ -1,6 +1,6 @@
 # cypheRS
 
-Pure Rust implementation of all cryptographic algorithms (for fun and learning!).
+Pure Rust implementation of classical ciphers (for fun and learning!).
 
 ## Disclaimer
 
