@@ -1,8 +1,8 @@
 [workspace]
 members = [
-    "aes",
     "affine",
     "bacon",
+    "beaufort",
     "caesar",
     "des",
     "otp",
