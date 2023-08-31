@@ -6,6 +6,7 @@ members = [
     "caesar",
     "des",
     "otp",
+    "polybius-square",
     "rot13",
     "vigenere",
 ]
