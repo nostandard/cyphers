@@ -2,6 +2,24 @@
 
 Pure Rust implementation of classical ciphers (for fun and learning!).
 
+## Implementation Status
+
+### Implemented
+
+- [x] Caesar
+- [x] One-Time Pad (OTP)
+- [x] Vigenère
+
+### TODO
+
+- [ ] Affine
+- [ ] Bacon
+- [ ] Beaufort
+- [ ] Playfair
+- [ ] Polybius Square
+- [ ] Porta
+- [ ] ROT13
+
 ## Disclaimer
 
 Never deploy your own crypto implementations in production, i.e. you should only implement crypto algorithms for fun and learning.
