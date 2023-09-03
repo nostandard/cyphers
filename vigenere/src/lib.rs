@@ -1,1 +1,1 @@
-//! An implementation of the Vigenere cipher
+//! An implementation of the Vigenère cipher
