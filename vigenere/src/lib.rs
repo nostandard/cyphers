@@ -1,14 +1,31 @@
 //! An implementation of the Vigenère cipher
+//!
+//! This crate provides functionality to encrypt and decrypt messages using
+//! the Vigenère cipher, a method of encrypting alphabetic text by using a
+//! simple form of polyalphabetic substitution.
 
-const ALPHABET: &'static str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const ALPHABET: &str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const ALPHABET_SIZE: usize = ALPHABET.len();
 
+/// Enumeration for distinguishing encryption and decryption operations.
+///
+/// This enum is utilized in the `char_shift` function to indicate whether a
+/// character should be shifted for encryption or decryption.
 enum Operation {
     Encrypt,
     Decrypt,
 }
 
 /// Encrypts the provided plaintext using the Vigenère cipher and the given key.
+///
+/// # Arguments
+///
+/// * `plaintext` - The text to be encrypted.
+/// * `key` - The key to use for encryption.
+///
+/// # Returns
+///
+/// A new string that contains the encrypted version of the `plaintext`.
 pub fn encrypt(plaintext: &str, key: &str) -> String {
     let extended_key = extend_key(key, plaintext.len());
 
@@ -19,12 +36,21 @@ pub fn encrypt(plaintext: &str, key: &str) -> String {
             let shift = ALPHABET
                 .find(extended_key.chars().nth(idx).unwrap_or_default())
                 .unwrap_or_default() as isize;
-            char_shift(c, shift, Operation::Encrypt)
+            shift_char(c, shift, Operation::Encrypt)
         })
         .collect()
 }
 
 /// Decrypts the provided ciphertext using the Vigenère cipher and the given key.
+///
+/// # Arguments
+///
+/// * `ciphertext` - The text to be decrypted.
+/// * `key` - The key used for decryption.
+///
+/// # Returns
+///
+/// A new string that contains the decrypted version of the `ciphertext`.
 pub fn decrypt(ciphertext: &str, key: &str) -> String {
     let extended_key = extend_key(key, ciphertext.len());
 
@@ -35,18 +61,43 @@ pub fn decrypt(ciphertext: &str, key: &str) -> String {
             let shift = ALPHABET
                 .find(extended_key.chars().nth(idx).unwrap_or_default())
                 .unwrap_or_default() as isize;
-            char_shift(char, shift, Operation::Decrypt)
+            shift_char(char, shift, Operation::Decrypt)
         })
         .collect()
 }
 
 /// Extends the key to match the desired length by repeating it as necessary.
+///
+/// This function generates a new key by cycling the provided key until it
+/// reaches the desired length.
+///
+/// # Arguments
+///
+/// * `key` - The initial key.
+/// * `txt_len` - The desired length of the extended key.
+///
+/// # Returns
+///
+/// A new string containing the extended key.
 fn extend_key(key: &str, txt_len: usize) -> String {
     key.chars().cycle().take(txt_len).collect()
 }
 
-/// Shifts a character in the alphabet by a specified amount, depending on the operation (encryption or decryption).
-fn char_shift(c: char, shift: isize, op: Operation) -> char {
+/// Shifts a character in the alphabet by a specified amount.
+///
+/// Depending on the operation (encryption or decryption), the character is
+/// shifted forward or backward in the alphabet.
+///
+/// # Arguments
+///
+/// * `c` - The character to be shifted.
+/// * `shift` - The number of positions to shift the character.
+/// * `op` - The operation (either encrypt or decrypt).
+///
+/// # Returns
+///
+/// A character that is the result of the shifting operation.
+fn shift_char(c: char, shift: isize, op: Operation) -> char {
     let position = ALPHABET.find(c).unwrap_or_default() as isize;
 
     let new_position = match op {
@@ -58,10 +109,18 @@ fn char_shift(c: char, shift: isize, op: Operation) -> char {
 }
 
 #[doc(hidden)]
-#[allow(dead_code)]
-/// Prepares a string by converting it to uppercase and filtering out non-alphabetic characters.
-fn prepare_string(input_string: &str) -> String {
-    // Convert the string to uppercase and remove non-alphabetic characters
+/// Prepares a string by converting it to uppercase and filtering out non-ASCII-alphabetic characters.
+///
+/// This function serves as a helper to ensure input consistency before encryption or decryption.
+///
+/// # Arguments
+///
+/// * `input_string` - The string to be prepared.
+///
+/// # Returns
+///
+/// A new string that has been converted to uppercase and stripped of non-ASCII-alphabetic characters.
+pub fn prepare_string(input_string: &str) -> String {
     input_string
         .chars()
         .filter(|c| c.is_ascii_alphabetic())
