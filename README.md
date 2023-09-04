@@ -8,6 +8,7 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 
 - [x] Caesar
 - [x] One-Time Pad (OTP)
+- [x] ROT13
 - [x] Vigenère
 
 ### TODO
@@ -18,7 +19,6 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 - [ ] Playfair
 - [ ] Polybius Square
 - [ ] Porta
-- [ ] ROT13
 
 ## Disclaimer
 
