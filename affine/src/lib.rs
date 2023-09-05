@@ -1,5 +1,17 @@
-//! An implementation of Affine cipher.
+//! An implementation of the Affine cipher.
 
+/// Encrypts a given plaintext using the Affine cipher.
+///
+/// # Arguments
+///
+/// * `plaintext` - The text to be encrypted.
+/// * `a` - The multiplicative key. Should be coprime with 26.
+/// * `b` - The additive key. Can be any integer.
+///
+/// # Returns
+///
+/// * `Result<String, &'static str>` - Returns an Ok variant with encrypted text as a string,
+/// or an Err variant with a static string describing the error.
 pub fn encrypt(plaintext: &str, a: i32, b: i32) -> Result<String, &'static str> {
     let mut ciphertext = String::new();
     for c in plaintext.chars() {
@@ -14,6 +26,18 @@ pub fn encrypt(plaintext: &str, a: i32, b: i32) -> Result<String, &'static str> 
     Ok(ciphertext)
 }
 
+/// Decrypts a given ciphertext using the Affine cipher.
+///
+/// # Arguments
+///
+/// * `ciphertext` - The text to be decrypted.
+/// * `a` - The multiplicative key. Should be coprime with 26.
+/// * `b` - The additive key. Can be any integer.
+///
+/// # Returns
+///
+/// * `Result<String, &'static str>` - Returns an Ok variant with decrypted text as a string,
+/// or an Err variant with a static string describing the error.
 pub fn decrypt(ciphertext: &str, a: i32, b: i32) -> Result<String, &'static str> {
     let inverse_a = modular_inverse(a, 26).ok_or("Failed to find modular inverse")?;
     let mut plaintext = String::new();
@@ -29,6 +53,17 @@ pub fn decrypt(ciphertext: &str, a: i32, b: i32) -> Result<String, &'static str>
     Ok(plaintext)
 }
 
+/// Finds the modular inverse of a given number modulo `m`.
+///
+/// # Arguments
+///
+/// * `a` - The number for which the modular inverse needs to be found. Should be coprime with `m`.
+/// * `m` - The modulo.
+///
+/// # Returns
+///
+/// * `Option<i32>` - Returns a Some variant with the modular inverse if it exists,
+/// or a None variant if it doesn't exist.
 fn modular_inverse(a: i32, m: i32) -> Option<i32> {
     for i in 1..m {
         if (a * i) % m == 1 {
