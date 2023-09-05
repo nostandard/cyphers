@@ -72,3 +72,27 @@ fn modular_inverse(a: i32, m: i32) -> Option<i32> {
     }
     None
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_affine_encryption() {
+        assert_eq!(encrypt("hello", 5, 8).unwrap(), "rclla");
+        assert_eq!(encrypt("rust", 3, 4).unwrap(), "dmgj");
+    }
+
+    #[test]
+    fn test_affine_decryption() {
+        assert_eq!(decrypt("rclla", 5, 8).unwrap(), "hello");
+        assert_eq!(decrypt("dmgj", 3, 4).unwrap(), "rust");
+    }
+
+    #[test]
+    fn test_affine_modular_inverse() {
+        assert_eq!(modular_inverse(5, 26), Some(21));
+        assert_eq!(modular_inverse(3, 26), Some(9));
+        assert_eq!(modular_inverse(4, 26), None); // 4 is not coprime with 26
+    }
+}
