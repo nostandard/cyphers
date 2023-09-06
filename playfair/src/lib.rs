@@ -4,7 +4,7 @@ use std::collections::HashSet;
 use thiserror::Error;
 
 /// Error type for the Playfair cipher functions.
-#[derive(Error, Debug)]
+#[derive(Error, Debug, PartialEq)]
 pub enum PlayfairError {
     #[error("Keyword and text cannot be empty")]
     EmptyInput,
@@ -224,5 +224,38 @@ fn process_digraph(
         Ok(format!("{}{}", matrix[new_x1][y1], matrix[new_x2][y2]))
     } else {
         Ok(format!("{}{}", matrix[x1][y2], matrix[x2][y1]))
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // #[test]
+    // fn test_playfair_encryption() {
+    //     todo!()
+    // }
+
+    // #[test]
+    // fn test_playfair_decryption() {
+    //     todo!()
+    // }
+
+    #[test]
+    fn test_playfair_empty_keyword() {
+        assert_eq!(
+            encrypt("", "HELLOPLAYFAIRCIPHER"),
+            Err(PlayfairError::EmptyInput)
+        );
+    }
+
+    #[test]
+    fn test_playfair_empty_text() {
+        assert_eq!(encrypt("keyword", ""), Err(PlayfairError::EmptyInput));
+    }
+
+    #[test]
+    fn test_playfair_invalid_text() {
+        assert_eq!(encrypt("keyword", "12345"), Err(PlayfairError::InvalidText));
     }
 }
