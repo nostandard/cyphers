@@ -26,11 +26,7 @@ pub fn rot13(input: &str) -> String {
         .map(|c| {
             if c.is_ascii_alphabetic() {
                 // Determine the ASCII value of the base character ('a' for lowercase, 'A' for uppercase).
-                let base = if c.is_ascii_lowercase() {
-                    'a' as u8
-                } else {
-                    'A' as u8
-                };
+                let base = if c.is_ascii_lowercase() { b'a' } else { b'A' };
                 // Calculate the ROT13 offset for the current character.
                 let offset = (c as u8 - base + ROTATION) % ALPHABET_SIZE;
                 // Convert the offset back to a char and return it.

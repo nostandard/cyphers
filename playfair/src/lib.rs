@@ -121,7 +121,7 @@ fn create_matrix(keyword: &str) -> [[char; 5]; 5] {
 /// A string with 'J' replaced by 'I' and non-alphabetic characters removed.
 fn prepare_text(text: &str) -> String {
     text.to_uppercase()
-        .replace("J", "I")
+        .replace('J', "I")
         .chars()
         .filter(|c| c.is_alphabetic())
         .collect()

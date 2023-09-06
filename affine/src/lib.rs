@@ -65,12 +65,7 @@ pub fn decrypt(ciphertext: &str, a: i32, b: i32) -> Result<String, &'static str>
 /// * `Option<i32>` - Returns a Some variant with the modular inverse if it exists,
 /// or a None variant if it doesn't exist.
 fn modular_inverse(a: i32, m: i32) -> Option<i32> {
-    for i in 1..m {
-        if (a * i) % m == 1 {
-            return Some(i);
-        }
-    }
-    None
+    (1..m).find(|&i| (a * i) % m == 1)
 }
 
 #[cfg(test)]
