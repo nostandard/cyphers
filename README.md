@@ -6,17 +6,20 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 
 ### Implemented
 
-- [x] Caesar
-- [x] One-Time Pad (OTP)
-- [x] ROT13
-- [x] Vigenère
+- [X] Caesar
+- [X] One-Time Pad (OTP)
+- [X] ROT13
+- [X] Vigenère
+
+### WIP
+
+- [x] Playfair
 
 ### TODO
 
 - [ ] Affine
 - [ ] Bacon
 - [ ] Beaufort
-- [ ] Playfair
 - [ ] Polybius Square
 - [ ] Porta
 
