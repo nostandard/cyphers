@@ -37,3 +37,23 @@ The transformation wraps around the alphabet, so after "Z", it goes back to "A".
 8. Append the new character (transformed or unchanged) to the `result` string.
 
 9. Once all characters have been processed, return the `result` string as the output of the function.
+
+## Possible Attacks
+
+The `ROT13` cipher is a `Caesar` cipher, a type of substitution cipher, which is quite simple and not meant for securing confidential information. Here are some possible attacks on it:
+
+1. Brute-Force Attack:
+
+      * Given its small key space (only 25 possible keys, excluding the identity transformation), an attacker can easily try all possible keys to decrypt the message.
+
+2. Frequency Analysis:
+
+      * Since ROT13 doesn't alter the frequency distribution of the characters, an attacker can perform frequency analysis to determine the most common letters and hence decipher the message.
+
+3. Known-Plaintext Attack:
+
+      * If an attacker has access to even a small piece of the plaintext and its corresponding ciphertext, they can easily determine the rotation used (which is 13 in the case of ROT13) and hence decrypt the entire message.
+
+4. Ciphertext-Only Attack:
+
+      * Given enough ciphertext, an attacker can potentially decrypt the message using statistical methods, as the ROT13 cipher doesn't provide diffusion.
