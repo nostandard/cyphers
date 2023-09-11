@@ -6,6 +6,7 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 
 ### Implemented
 
+- [X] Affine
 - [X] Caesar
 - [X] One-Time Pad (OTP)
 - [X] ROT13
@@ -17,7 +18,6 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 
 ### TODO
 
-- [ ] Affine
 - [ ] Bacon
 - [ ] Beaufort
 - [ ] Polybius Square
