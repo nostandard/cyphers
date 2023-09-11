@@ -51,3 +51,35 @@ Decryption is done by applying the same key to the ciphertext, using the XOR ope
 ## Limitation
 
 To achieve perfect secrecy, an implementation of the OTP cipher requires truly random, as opposed to pseudorandom, one-time pad values, which is a non-trivial requirement. Random number generation in computers is often difficult, and pseudorandom number generators are often used for their speed and usefulness for most applications. True random number generators exist, but are typically slower and more specialized. In this implementation, I've used the `rand` crate's `OsRng` type instead of its default `ThreadRng`, which is a thread-local, automatically-seeded random number generator.
+
+## Possible Attacks
+
+The One-Time Pad (OTP) cipher is theoretically unbreakable if implemented and used perfectly. However, the following are potential vectors of attack due to improper usage or implementation:
+
+1. Key Reuse:
+
+    * **Two-time Pad Attack**: If the same key is used more than once, it is possible to find correlations between ciphertexts which can reveal information about the plaintexts.
+
+2. Key Interception:
+
+    * If the key, which needs to be as long as the message, is intercepted during transmission, the security is compromised.
+
+3. Flaws in Key Generation:
+
+    * If the key is not truly random, patterns may emerge that can be exploited to break the cipher.
+
+4. Brute-Force Attack on Short Messages:
+
+    * Extremely short messages (just a few bits) might be susceptible to brute-force attacks, where every possible key is tried to obtain a coherent plaintext.
+
+5. Chosen Plaintext Attack:
+
+    * If an attacker can choose plaintexts to be encrypted with the key (which should not be possible with a proper OTP), they might be able to glean information about the key.
+
+6. Improper Storage of Keys:
+
+    * If keys are stored improperly and are accessed by unauthorized individuals, it could compromise the security.
+
+7. Human Error:
+
+    * Human error in key generation, key distribution, or other procedures can potentially result in security breaches.
