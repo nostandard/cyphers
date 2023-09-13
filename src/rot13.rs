@@ -14,7 +14,7 @@ const ALPHABET_SIZE: u8 = 26;
 /// # Examples
 ///
 /// ```
-/// use rot13::rot13;
+/// use cyphers::rot13::rot13;
 ///
 /// assert_eq!(rot13("Hello, World!"), "Uryyb, Jbeyq!");
 /// assert_eq!(rot13("Uryyb, Jbeyq!"), "Hello, World!");

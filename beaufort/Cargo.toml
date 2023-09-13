@@ -1,8 +1,0 @@
-[package]
-name = "beaufort"
-version = "0.1.0"
-description = "An implementation of the Beaufort cipher"
-authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
-edition = "2021"
-
-[dependencies]
