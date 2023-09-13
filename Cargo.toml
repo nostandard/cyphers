@@ -1,15 +1,16 @@
-[workspace]
-members = [
-    "affine",
-    "bacon",
-    "beaufort",
-    "caesar",
-    "otp",
-    "playfair",
-    "polybius-square",
-    "porta",
-    "rot13",
-    "vigenere",
-]
+[package]
+name = "cyphers"
+version = "0.1.0"
+description = "Pure Rust implementation of classical ciphers (for fun and learning!)"
+authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
+repository = "https://github.com/nostandard/cyphers"
+documentation = "https://docs.rs/cyphers"
+license = "MIT or APACHE-2.0"
+readme = "README.md"
+keywords = ["cryptography", "crypto", "security"]
+categories = ["cryptography"]
+edition = "2021"
 
-resolver = "2"
+[dependencies]
+rand = "0.8.5"
+thiserror = "1"

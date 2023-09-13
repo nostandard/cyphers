@@ -1,8 +1,0 @@
-[package]
-name = "porta"
-version = "0.1.0"
-description = "An implementation of the Porta cipher"
-authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
-edition = "2021"
-
-[dependencies]

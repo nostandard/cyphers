@@ -1,8 +1,0 @@
-[package]
-name = "rot13"
-version = "0.1.0"
-description = "An implementation of the ROT13 cipher"
-authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
-edition = "2021"
-
-[dependencies]

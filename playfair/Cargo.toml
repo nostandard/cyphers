@@ -1,9 +1,0 @@
-[package]
-name = "des"
-version = "0.1.0"
-description = "An implementation of the Playfair cipher"
-authors = ["Kobby Pentangeli <kobbypentangeli@gmail.com>"]
-edition = "2021"
-
-[dependencies]
-thiserror = "1"
