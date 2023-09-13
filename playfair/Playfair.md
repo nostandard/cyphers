@@ -38,3 +38,21 @@ The Playfair cipher is a manual symmetric encryption technique and was the first
     * To decrypt, reverse the encryption steps: for letters in the same row, take the letters to their left; for letters in the same column, take the letters above them; for letters forming a rectangle, the substitution remains the same.
     * Concatenate the decrypted digraphs to form the decrypted text.
     * Display the decrypted text as the output.
+
+## Possible Attacks
+
+1. Frequency Analysis:
+
+    * Even though the Playfair cipher is more secure than simple substitution ciphers due to its use of digraphs, it is still susceptible to frequency analysis. An attacker can analyze the frequency of digraphs (pairs of letters) in the ciphertext and compare it to the expected frequency of digraphs in the English language to gain clues about the key.
+
+2. Known-Plaintext Attack:
+
+    * If an attacker has a piece of the plaintext and its corresponding ciphertext, they can potentially reconstruct parts of the key matrix.
+
+3. Chosen-Plaintext Attack:
+
+    * In this attack, an attacker can choose specific plaintexts to encrypt and analyze the resulting ciphertexts to find patterns and deduce information about the key.
+
+4. Brute Force Attack:
+
+    * Since the key space for the Playfair cipher is finite (the key is a permutation of a 25-letter alphabet), an attacker with sufficient computational resources could attempt to brute-force the key.
