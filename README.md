@@ -15,12 +15,12 @@ Pure Rust implementation of classical ciphers (for fun and learning!).
 ### WIP
 
 - [x] Playfair
+- [x] Polybius Square
 
 ### TODO
 
 - [ ] Bacon
 - [ ] Beaufort
-- [ ] Polybius Square
 - [ ] Porta
 
 ## Disclaimer
