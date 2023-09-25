@@ -22,7 +22,9 @@ pub fn generate_key(len: usize) -> Vec<u8> {
 /// * `plaintext` - The data to be encrypted.
 /// * `key` - The key to use for encryption.
 ///
-/// Returns a "ciphertext" as bytes.
+/// # Returns
+///
+/// A "ciphertext" as bytes.
 pub fn encrypt(plaintext: &str, key: &[u8]) -> Vec<u8> {
     encipher(plaintext.as_bytes(), key)
 }
@@ -34,7 +36,9 @@ pub fn encrypt(plaintext: &str, key: &[u8]) -> Vec<u8> {
 /// * `ciphertext` - The data to be decrypted.
 /// * `key` - The key to use for decryption.
 ///
-/// Returns the original plaintext (string).
+/// # Returns
+///
+/// The original plaintext (string).
 pub fn decrypt(ciphertext: &[u8], key: &[u8]) -> String {
     let plaintext_bytes = encipher(ciphertext, key);
     unsafe { String::from_utf8_unchecked(plaintext_bytes) }

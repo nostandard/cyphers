@@ -65,7 +65,8 @@ fn encipher(mode: Mode, data: &str, key: i32) -> String {
 
 /// Transforms a character based on the mode and key.
 ///
-/// This function is responsible for performing the Caesar cipher transformation for individual characters.
+/// This function is responsible for performing the Caesar cipher transformation
+/// for individual characters.
 ///
 /// # Arguments
 ///

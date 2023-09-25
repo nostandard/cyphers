@@ -2,7 +2,7 @@
 
 ## Overview
 
-The One-Time Pad (OTP) cipher is a symmetric encryption technique that requires a key, called a pad, that is as long as the message to be encrypted. When used correctly, it provides perfect secrecy. The OTP works by combining each bit or character of the plaintext with the corresponding bit or character from the key using bitwise exclusive OR (XOR).
+The One-Time Pad (OTP) cipher is a symmetric encryption technique that requires a key, called a `pad`, that is as long as the message to be encrypted. When used correctly, it provides perfect secrecy. The OTP works by combining each bit or character of the plaintext with the corresponding bit or character from the key using bitwise exclusive OR (XOR).
 
 The main principles of the OTP are:
 
