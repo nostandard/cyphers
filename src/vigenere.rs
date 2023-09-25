@@ -1,6 +1,6 @@
 //! An implementation of the Vigenère cipher
 //!
-//! This crate provides functionality to encrypt and decrypt messages using
+//! This module provides functionality to encrypt and decrypt messages using
 //! the Vigenère cipher, a method of encrypting alphabetic text by using a
 //! simple form of polyalphabetic substitution.
 
@@ -11,6 +11,7 @@ const ALPHABET_SIZE: usize = ALPHABET.len();
 ///
 /// This enum is utilized in the `char_shift` function to indicate whether a
 /// character should be shifted for encryption or decryption.
+#[derive(Copy, Clone)]
 enum Operation {
     Encrypt,
     Decrypt,
@@ -27,18 +28,7 @@ enum Operation {
 ///
 /// A new string that contains the encrypted version of the `plaintext`.
 pub fn encrypt(plaintext: &str, key: &str) -> String {
-    let extended_key = extend_key(key, plaintext.len());
-
-    plaintext
-        .chars()
-        .enumerate()
-        .map(|(idx, c)| {
-            let shift = ALPHABET
-                .find(extended_key.chars().nth(idx).unwrap_or_default())
-                .unwrap_or_default() as isize;
-            shift_char(c, shift, Operation::Encrypt)
-        })
-        .collect()
+    encipher(plaintext, key, Operation::Encrypt)
 }
 
 /// Decrypts the provided ciphertext using the Vigenère cipher and the given key.
@@ -52,16 +42,54 @@ pub fn encrypt(plaintext: &str, key: &str) -> String {
 ///
 /// A new string that contains the decrypted version of the `ciphertext`.
 pub fn decrypt(ciphertext: &str, key: &str) -> String {
-    let extended_key = extend_key(key, ciphertext.len());
+    encipher(ciphertext, key, Operation::Decrypt)
+}
 
-    ciphertext
+/// Prepares a string by converting it to uppercase and filtering out non-ASCII-alphabetic characters.
+///
+/// This function serves as a helper to ensure input consistency before encryption or decryption.
+///
+/// # Arguments
+///
+/// * `input_string` - The string to be prepared.
+///
+/// # Returns
+///
+/// A new string that has been converted to uppercase and stripped of non-ASCII-alphabetic characters.
+pub fn prepare_string(input_string: &str) -> String {
+    input_string
         .chars()
+        .filter(|c| c.is_ascii_alphabetic())
+        .collect::<String>()
+        .to_uppercase()
+}
+
+/// Transforms the provided text using the Vigenère cipher
+/// and the given key based on the specified operation (encryption or decryption).
+///
+/// This function serves as a core for both encryption and decryption
+/// by abstracting out their shared logic. It enciphers the input text
+/// depending on the operation specified, either encrypting or decrypting it.
+///
+/// # Arguments
+///
+/// * `text` - The text to be transformed (either plaintext for encryption or ciphertext for decryption).
+/// * `key` - The key to use for the transformation.
+/// * `op` - The operation to be performed (either `Operation::Encrypt` or `Operation::Decrypt`).
+///
+/// # Returns
+///
+/// A new string that contains the transformed version of the `text` based on the specified operation.
+fn encipher(data: &str, key: &str, op: Operation) -> String {
+    let extended_key = extend_key(key, data.len());
+
+    data.chars()
         .enumerate()
-        .map(|(idx, char)| {
+        .map(|(idx, c)| {
             let shift = ALPHABET
                 .find(extended_key.chars().nth(idx).unwrap_or_default())
                 .unwrap_or_default() as isize;
-            shift_char(char, shift, Operation::Decrypt)
+            shift_char(c, shift, op)
         })
         .collect()
 }
@@ -108,32 +136,30 @@ fn shift_char(c: char, shift: isize, op: Operation) -> char {
     ALPHABET.chars().nth(new_position as usize).unwrap_or(c)
 }
 
-#[doc(hidden)]
-/// Prepares a string by converting it to uppercase and filtering out non-ASCII-alphabetic characters.
-///
-/// This function serves as a helper to ensure input consistency before encryption or decryption.
-///
-/// # Arguments
-///
-/// * `input_string` - The string to be prepared.
-///
-/// # Returns
-///
-/// A new string that has been converted to uppercase and stripped of non-ASCII-alphabetic characters.
-pub fn prepare_string(input_string: &str) -> String {
-    input_string
-        .chars()
-        .filter(|c| c.is_ascii_alphabetic())
-        .collect::<String>()
-        .to_uppercase()
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn test_vigenere_encryption() {
+    fn test_vigenere_encipher() {
+        let data = "HELLO";
+        let key = "KEY";
+
+        // Test encryption
+        let encrypted = encipher(
+            &prepare_string(data),
+            &prepare_string(key),
+            Operation::Encrypt,
+        );
+        assert_eq!(encrypted, "RIJVS");
+
+        // Test decryption
+        let decrypted = encipher(&encrypted, &prepare_string(key), Operation::Decrypt);
+        assert_eq!(decrypted, "HELLO");
+    }
+
+    #[test]
+    fn test_vigenere_encrypt() {
         let plaintext = "HELLO";
         let key = "KEY";
         let ciphertext = encrypt(&prepare_string(plaintext), &prepare_string(key));
@@ -141,7 +167,7 @@ mod tests {
     }
 
     #[test]
-    fn test_vigenere_decryption() {
+    fn test_vigenere_decrypt() {
         let ciphertext = "RIJVS";
         let key = "KEY";
         let plaintext = decrypt(&ciphertext, &prepare_string(key));
@@ -149,14 +175,14 @@ mod tests {
     }
 
     #[test]
-    fn test_prepare_string() {
+    fn test_vigenere_prepare_string() {
         let input = "HeLlo WoRld";
         let output = prepare_string(input);
         assert_eq!(output, "HELLOWORLD");
     }
 
     #[test]
-    fn test_extend_key() {
+    fn test_vigenere_extend_key() {
         let key = "KEY";
         let extended = extend_key(key, 5);
         assert_eq!(extended, "KEYKE");
