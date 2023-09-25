@@ -7,7 +7,8 @@ use rand::RngCore;
 ///
 /// # Arguments
 ///
-/// * `len` - The desired length of the key.
+/// * `len` - The desired length of the key, usually derived from
+/// the length of the plaintext and/or ciphertext.
 pub fn generate_key(len: usize) -> Vec<u8> {
     let mut key = vec![0u8; len];
     OsRng.fill_bytes(&mut key);
@@ -20,8 +21,8 @@ pub fn generate_key(len: usize) -> Vec<u8> {
 ///
 /// * `plaintext` - The data to be encrypted.
 /// * `key` - The key to use for encryption.
-pub fn encrypt(plaintext: &[u8], key: &[u8]) -> Vec<u8> {
-    encipher(plaintext, key)
+pub fn encrypt(plaintext: &str, key: &[u8]) -> Vec<u8> {
+    encipher(plaintext.as_bytes(), key)
 }
 
 /// Decrypts the given ciphertext using the specified key.
@@ -41,7 +42,7 @@ pub fn decrypt(ciphertext: &[u8], key: &[u8]) -> Vec<u8> {
 ///
 /// * `data` - The plaintext (for encryption) or ciphertext (for decryption).
 /// * `key` - The key to use for encryption/decryption.
-pub fn encipher(data: &[u8], key: &[u8]) -> Vec<u8> {
+fn encipher(data: &[u8], key: &[u8]) -> Vec<u8> {
     if data.len() != key.len() {
         panic!("The lengths of the data and the key do not match!");
     }
@@ -64,7 +65,7 @@ mod tests {
     fn test_otp_encryption_and_decryption() {
         let plaintext = "Hello";
         let key = generate_key(plaintext.len());
-        let ciphertext = encrypt(plaintext.as_bytes(), &key);
+        let ciphertext = encrypt(plaintext, &key);
 
         println!(
             "Plaintext: {}, \nKey: {:?}, \nCiphertext: {:?}",
